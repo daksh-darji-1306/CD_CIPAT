@@ -1,0 +1,12 @@
+
+Parsing: id+*id
+#   STACK                   INPUT                 ACTION
+----------------------------------------------------------------------
+1   E $                     id + * id $           E → T E'
+2   T E' $                  id + * id $           T → F T'
+3   F T' E' $               id + * id $           F → id
+4   id T' E' $              id + * id $           match id
+5   T' E' $                 + * id $              T' → ε
+6   E' $                    + * id $              E' → + T E'
+7   + T E' $                + * id $              match +
+8   T E' $                  * id $                ERROR: M[T,*] is empty

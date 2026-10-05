@@ -1,0 +1,360 @@
+:root {
+  /* Apple HIG Semantic Colors - Light Mode Defaults */
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-red: #FF3B30;
+  
+  --bg-color: #F2F2F7; /* systemGroupedBackground */
+  --panel-bg: rgba(255, 255, 255, 0.75); /* Liquid glass base */
+  --border-color: rgba(60, 60, 67, 0.13); /* separator */
+  
+  --text-color: #000000; /* label */
+  --text-muted: rgba(60, 60, 67, 0.6); /* secondaryLabel */
+  
+  --accent-color: var(--system-blue);
+  --accent-hover: #005bb5;
+  --error-color: var(--system-red);
+  --success-color: var(--system-green);
+  
+  --font-mono: 'SF Mono', ui-monospace, Consolas, monospace;
+  --font-sans: 'SF Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --spacing: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Adaptive colors for Dark Mode */
+    --system-blue: #0A84FF;
+    --system-green: #30D158;
+    --system-red: #FF453A;
+    
+    --bg-color: #000000;
+    --panel-bg: rgba(28, 28, 30, 0.75); 
+    --border-color: rgba(84, 84, 88, 0.65);
+    
+    --text-color: #FFFFFF;
+    --text-muted: rgba(235, 235, 245, 0.6);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  font-size: 17px; /* HIG Body size */
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Liquid Glass Elements */
+header, .toolbar, .right-pane, .tabs-header {
+  background-color: var(--panel-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+header {
+  padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2.5);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 22px; /* HIG Title 2 */
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+}
+
+header .subtitle {
+  font-size: 15px; /* HIG Subhead */
+  color: var(--text-muted);
+}
+
+.toolbar {
+  padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2.5);
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 44px min tap targets for buttons and selects */
+.toolbar select, .toolbar button {
+  background-color: var(--bg-color);
+  color: var(--accent-color);
+  border: 1px solid var(--border-color);
+  padding: 0 calc(var(--spacing) * 2);
+  height: 44px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbar button.primary {
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.toolbar button.primary:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.left-pane {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.right-pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.gutter {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  cursor: col-resize;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+}
+
+.gutter:hover {
+  background-color: rgba(0, 122, 255, 0.1);
+}
+
+.editor-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-gutter {
+  padding: 10px 5px;
+  background-color: var(--panel-bg);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  text-align: right;
+  user-select: none;
+  overflow-y: hidden;
+  border-right: 1px solid var(--border-color);
+}
+
+.editor-gutter-line {
+  line-height: 24px;
+}
+
+.editor-gutter-line.error-line {
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+.editor-textarea {
+  flex: 1;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 24px;
+  resize: none;
+  outline: none;
+  white-space: pre;
+  overflow: auto;
+}
+
+.pipeline-bar {
+  display: flex;
+  padding: calc(var(--spacing) * 1.5);
+  border-bottom: 1px solid var(--border-color);
+  gap: calc(var(--spacing) * 1);
+}
+
+.pipeline-phase {
+  flex: 1;
+  text-align: center;
+  padding: calc(var(--spacing) * 1);
+  border-radius: 8px;
+  font-size: 13px; /* HIG Footnote */
+  background-color: var(--border-color);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.pipeline-phase.ok {
+  background-color: rgba(52, 199, 89, 0.15);
+  color: var(--success-color);
+}
+
+.pipeline-phase.error {
+  background-color: rgba(255, 59, 48, 0.15);
+  color: var(--error-color);
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  padding: 0 calc(var(--spacing) * 2);
+  height: 44px; /* HIG min tap target */
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-size: 15px; /* Subhead */
+  font-weight: 500;
+}
+
+.tab-btn.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.tab-content {
+  flex: 1;
+  overflow: auto;
+  padding: calc(var(--spacing) * 2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: calc(var(--spacing) * 1.5);
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 15px;
+}
+
+th {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.token-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  background-color: var(--border-color);
+  font-family: var(--font-mono);
+}
+
+/* Syntax highlighting mapping nicely to Apple UI */
+.token-KEYWORD { color: #d63aff; } /* Purple */
+.token-IDENTIFIER { color: var(--text-color); }
+.token-NUMBER { color: #ff9500; } /* systemOrange */
+.token-OPERATOR { color: var(--text-muted); }
+.token-DELIMITER { color: var(--text-muted); }
+
+.ast-node {
+  margin-left: 20px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+
+.ast-toggle {
+  cursor: pointer;
+  color: var(--accent-color);
+  user-select: none;
+  margin-right: 8px;
+}
+
+.tac-container {
+  display: flex;
+  gap: calc(var(--spacing) * 3);
+}
+
+.tac-column {
+  flex: 1;
+}
+
+.tac-line {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 4px 0;
+}
+
+.tac-line-num {
+  color: var(--text-muted);
+  margin-right: 12px;
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+}
+
+.stats-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: rgba(0, 122, 255, 0.1);
+  color: var(--accent-color);
+  font-size: 15px;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+.output-line {
+  font-family: var(--font-mono);
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.error-banner {
+  background-color: rgba(255, 59, 48, 0.15);
+  color: var(--error-color);
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.empty-state {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px;
+  font-size: 17px;
+}

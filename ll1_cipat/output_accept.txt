@@ -1,0 +1,21 @@
+
+Parsing: id+id*id
+#   STACK                   INPUT                 ACTION
+----------------------------------------------------------------------
+1   E $                     id + id * id $        E → T E'
+2   T E' $                  id + id * id $        T → F T'
+3   F T' E' $               id + id * id $        F → id
+4   id T' E' $              id + id * id $        match id
+5   T' E' $                 + id * id $           T' → ε
+6   E' $                    + id * id $           E' → + T E'
+7   + T E' $                + id * id $           match +
+8   T E' $                  id * id $             T → F T'
+9   F T' E' $               id * id $             F → id
+10  id T' E' $              id * id $             match id
+11  T' E' $                 * id $                T' → * F T'
+12  * F T' E' $             * id $                match *
+13  F T' E' $               id $                  F → id
+14  id T' E' $              id $                  match id
+15  T' E' $                 $                     T' → ε
+16  E' $                    $                     E' → ε
+17  $                       $                     ACCEPT

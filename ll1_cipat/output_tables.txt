@@ -1,0 +1,21 @@
+FIRST sets
+  FIRST(E) = { (, id }
+  FIRST(E') = { +, ε }
+  FIRST(T) = { (, id }
+  FIRST(T') = { *, ε }
+  FIRST(F) = { (, id }
+
+FOLLOW sets
+  FOLLOW(E) = { $, ) }
+  FOLLOW(E') = { $, ) }
+  FOLLOW(T) = { $, ), + }
+  FOLLOW(T') = { $, ), + }
+  FOLLOW(F) = { $, ), *, + }
+
+Parsing table M[A, a]
+     id            +             *             (             )             $             
+E    E→TE'                                     E→TE'                                     
+E'                 E'→+TE'                                   E'→ε          E'→ε          
+T    T→FT'                                     T→FT'                                     
+T'                 T'→ε          T'→*FT'                     T'→ε          T'→ε          
+F    F→id                                      F→(E)                                     
